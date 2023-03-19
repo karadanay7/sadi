@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "deploy": "gh-pages -d dist ",
+    "start": "nuxt start"
+  },
+  "devDependencies": {
+    "@iconify/vue": "^4.1.0",
+    "@nuxt/content": "^2.5.2",
+    "@nuxtjs/tailwindcss": "^6.6.0",
+    "@tailwindcss/typography": "^0.5.9",
+    "gh-pages": "^5.0.0",
+    "nuxt": "^3.3.1",
+    "nuxt-icon": "^0.3.3"
+  },
+  "dependencies": {
+    "@iconify/iconify": "^3.1.0",
+    "@iconify/icons-fa-brands": "^1.2.4",
+    "@iconify/icons-feather": "^1.2.3",
+    "@nuxt/static": "^1.0.0",
+    "@nuxtjs/markdownit": "^0.0.2",
+    "postcss-import": "^15.1.0"
+  }
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html >
+<head><meta charset="utf-8">
+<title>Kalman Filter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https:/fonts.googleapis.com/icon?family=Material+Icons">
+<meta name="og:title" content="Kalman Filter">
+<meta name="description" content="What is Kalman Filter ? How does Kalman Filter work? How can we solve real-life problem with using Kalman Filtering?">
+<meta name="og:description" content="What is Kalman Filter ? How does Kalman Filter work? How can we solve real-life problem with using Kalman Filtering?"><link rel="modulepreload" href="/blog/kalman-filter/_payload.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/entry.2bb5d496.js"><link rel="preload" as="style" href="/_nuxt/entry.e8c80b27.css"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/default.2b386d29.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/nuxt-link.dc38357b.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/_...slug_.7962b2f8.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ContentDoc.059aa63d.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ContentRenderer.8be7732c.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ContentRendererMarkdown.73ea1c99.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/index.a6ef77ff.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ContentQuery.04811f08.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/query.1b7b181c.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/utils.a91ca54e.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ProseH1.cc0914f6.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ProseP.63ba756e.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ProseH2.4aa1f724.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ProseImg.2cf8f097.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ProseHr.6a91d9c0.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ProseCode.f15d7103.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ProseOl.f73cf3e0.js"><link rel="modulepreload" as="script" crossorigin href="/_nuxt/ProseLi.c4f2749f.js"><link rel="prefetch" as="script" crossorigin href="/_nuxt/error-component.35ea9176.js"><link rel="prefetch" as="image" type="image/png" href="/_nuxt/LogoMakr-9UJwVY.3a49f316.png"><link rel="stylesheet" href="/_nuxt/entry.e8c80b27.css"><style>body[data-v-fd85a974],html[data-v-fd85a974]{height:100%;margin:0;padding:0;width:100%}.router-link-exact-active[data-v-fd85a974]{color:#585959}footer[data-v-fd85a974],header[data-v-fd85a974]{height:8vh;width:100%}footer[data-v-fd85a974]{bottom:0;position:fixed}.page[data-v-fd85a974]{height:84vh;width:100%}@media screen and (max-width:700px){.motto[data-v-fd85a974]{font-size:10px}.logomaker[data-v-fd85a974]{font-size:8px}}@media screen and (max-width:510px){.motto[data-v-fd85a974]{display:none}.logomaker[data-v-fd85a974]{font-size:6px}}</style><style>pre code .line{display:block;min-height:1rem}</style></head>
+<body ><div id="__nuxt"><!--[--><div class="total" data-v-fd85a974><header class="bg-sky-50" data-v-fd85a974><nav class="container mx-auto p-4 flex justify-between" data-v-fd85a974><a href="/" class="font-bold" data-v-fd85a974>Aysegul</a><ul class="flex gap-4" data-v-fd85a974><li data-v-fd85a974><a href="/" class="" data-v-fd85a974>Home</a></li><li data-v-fd85a974><a href="/about" class="" data-v-fd85a974>About</a></li><li data-v-fd85a974><a href="/projects" class="btn" data-v-fd85a974>Projects</a></li><li data-v-fd85a974><a href="/blog" class="" data-v-fd85a974>Blog</a></li></ul></nav></header><div class="page" data-v-fd85a974><!--[--><!--[--><main class="prose"><!--[--><div><h1 id="kalman-filter-an-introduction"><!--[-->Kalman Filter: An Introduction<!--]--></h1><p><!--[-->Kalman Filter is a widely used algorithm for estimating the state of a system based on noisy observations. It was developed by Rudolf E. Kálmán in the early 1960s and has since found numerous applications in various fields such as engineering, robotics, finance, and more. In this blog post, we will discuss the basics of Kalman Filter, including its history, principles, and applications.<!--]--></p><h2 id="what-is-kalman-filter"><a href="#what-is-kalman-filter"><!--[-->What is Kalman Filter?<!--]--></a></h2><p><!--[-->Kalman Filter is a recursive algorithm that estimates the state of a system over time based on a sequence of observations that are corrupted by noise. It uses a mathematical model of the system dynamics and measurements to estimate the true state of the system. The basic idea behind Kalman Filter is to use the available data to infer the state of the system and to update this estimate as new data becomes available.<!--]--></p><h2 id="history-of-kalman-filter"><a href="#history-of-kalman-filter"><!--[-->History of Kalman Filter<!--]--></a></h2><p><!--[-->The development of Kalman Filter was motivated by the need to solve a problem in control theory known as the linear quadratic regulator (LQR) problem. The LQR problem involves finding a control policy that minimizes a quadratic cost function while ensuring that the system remains stable. Rudolf E. Kálmán, a Hungarian-American mathematician and electrical engineer, proposed a solution to this problem in 1960 using a recursive algorithm that estimated the state of the system based on noisy measurements.<!--]--></p><h2 id="how-does-kalman-filter-work"><a href="#how-does-kalman-filter-work"><!--[-->How does Kalman Filter work?<!--]--></a></h2><p><!--[-->Kalman Filter works by maintaining a probabilistic estimate of the state of the system over time. This estimate is represented as a Gaussian distribution with mean and covariance, which are updated recursively based on the new observations. The state of the system is assumed to follow a linear dynamic model with Gaussian noise, and the observations are assumed to be linearly related to the state with Gaussian noise. The Kalman Filter updates the estimate of the state based on a two-step process: prediction and update.<!--]--></p><h2 id="prediction-step"><a href="#prediction-step"><!--[-->Prediction step<!--]--></a></h2><p><!--[-->
+In the prediction step, the Kalman Filter uses the current estimate of the state and the state transition model to predict the state of the system at the next time step. The predicted state is represented as a Gaussian distribution with mean and covariance, which are computed using the following equations:<br>
+x̂_k|k-1 = F_k x̂_k-1|k-1 + B_k u_k + w_k
+P_k|k-1 = F_k P_k-1|k-1 F_k^T + Q_k
+<p><!--[-->where: <!--]--></p><p><!--[-->x̂_k|k-1 is the predicted state of the system at time k given the observations up to time k-1.
+F_k is the state transition matrix that describes how the state evolves over time.
+B_k is the control input matrix that describes how the control input affects the state.
+u_k is the control input at time k.
+w_k is the process noise, which is assumed to be Gaussian with mean 0 and covariance Q_k.<!--]--></p><!--]--></p><p><!--[-->P_k|k-1 is the predicted covariance of the state estimate at time k.
+In the update step, the Kalman Filter uses the predicted state and the observation model to update the state estimate based on the new observation. The updated state is represented as a Gaussian distribution with mean and covariance, which are computed using the following equations:<!--]--></p><br><p><!--[--><img src="/img/Kalman.png" alt="Alt text"><!--]--></p><h2 id="matlab-code-for-kalman-filter"><a href="#matlab-code-for-kalman-filter"><!--[-->MATLAB CODE FOR KALMAN FILTER<!--]--></a></h2><h2 id="here-is-the-solution-of-the-movement-of-an-object-with-a-constant-acceleration-by-using-matlab"><a href="#here-is-the-solution-of-the-movement-of-an-object-with-a-constant-acceleration-by-using-matlab"><!--[-->Here is the solution of the movement of an object with a constant acceleration by using Matlab<!--]--></a></h2><p><!--[-->Let the position of a vehicle be measured at 5 feet (with a standard deviation) acceleration of 3 feet/sec2 and a measurement noise of 0.1 feet/sec2 (a standard deviation). Since the position is measured every 5 seconds, let&#39;s try to estimate the position of this vehicle in the best way with the Kalman filter in 20 sec duration.<!--]--></p><hr><!--[--><pre><code>clc
+
+clear
+
+duration=20;
+
+dt=0.1;
+
+measnoise = 5; %position measurement noise (feet)
+
+accelnoise = 0.1; %acceleration noise (feet/sec^2)
+
+A = [1 dt; 0 1]; %transition matrix
+
+B = [dt^2/2; dt]; %input matrix
+
+C = [1 0]; %measurement matrix
+
+x = [0; 0]; %initial state vector
+
+xhat = x; %initial state estimate
+
+Sz = measnoise^2; %measurement error covariance
+
+Sw = accelnoise^2 \* [dt^4/4 dt^3/2; dt^3/2 dt^2];
+P = Sw; %initial estimation covariance
+
+%Initialize arrays for later plotting.
+
+tpos = []; %true position array
+
+poshat = []; %estimated position array
+
+posmeasured = []; %measured position array
+
+for t = 0 : dt: duration
+
+%Constant acceleration
+
+u = 3;
+
+%Simulation
+
+ProcessNoise = accelnoise * [(dt^2/2)*randn; dt\*randn];
+
+x = A _x + B_ u + ProcessNoise;
+
+%Measurement noise
+
+MeasNoise = measnoise \* randn;
+
+y = C \* x + MeasNoise;
+
+%Estimation
+
+xhat = A _xhat + B_ u;
+
+Inn = y - C \* xhat;
+
+s = C _P_ C&#39; + Sz;
+
+%Kalman gain
+
+K = A _P_ C&#39; \* inv(s);
+
+%State estimate
+
+xhat = xhat + K \* Inn;
+
+%Estimation error
+
+P = A _P_ A&#39; - A _P_ C&#39; _inv(s)_ C _P_ A&#39; + Sw;
+
+%values to plot
+
+tpos = [tpos; x(1)];
+
+posmeasured = [posmeasured; y];
+
+poshat = [poshat; xhat(1)];
+
+end
+
+%Plotting
+
+t = 0 : dt : duration;
+
+figure;
+
+plot(t,tpos,&#39;g&#39;,&#39;LineWidth&#39;,2);
+hold on
+
+plot(t,posmeasured,&#39;r.&#39;,&#39;LineWidth&#39;,2);
+
+plot(t,poshat,&#39;k&#39;,&#39;LineWidth&#39;,2);
+
+title(&#39;Position Estimations&#39;);
+
+xlabel(&#39;Time (sec)&#39;);
+
+ylabel(&#39;Position(feet)&#39;);
+
+legend(&#39;True Position&#39;, &#39;Measured Position&#39;, &#39;Estimated Position&#39;)
+
+
+</code></pre><!--]--><hr><h2 id="references"><a href="#references"><!--[-->References<!--]--></a></h2><ol><!--[--><li><!--[-->R. E. Kalman, &quot;A new approach to linear filtering and prediction problems,&quot; Transactions of the ASME -- Journal of Basic Engineering, vol. 82, pp. 35-45, March 1960.<!--]--></li><li><!--[-->G. Welch and G. Bishop, &quot;An introduction to the Kalman filter,&quot; Technical Report TR 95-041, University of North Carolina at Chapel Hill, 2006.<!--]--></li><li><!--[-->S. Särkkä, &quot;Bayesian filtering and smoothing,&quot; Cambridge University Press, 2013.<!--]--></li><li><!--[-->A. Gelb, &quot;Applied optimal estimation,&quot; The MIT Press, 1974.<!--]--></li><li><!--[-->D. Simon, &quot;Optimal state estimation: Kalman, H infinity, and nonlinear approaches,&quot; John Wiley &amp; Sons, 2006.<!--]--></li><!--]--></ol></div><!--]--></main><!--]--><!--]--></div><footer class="bg-sky-50 z-50" data-v-fd85a974><nav class="flex mx-auto p-2 justify-between items-center" data-v-fd85a974><div class="flex items-center" data-v-fd85a974><img src="/_nuxt/LogoMakr-9UJwVY.3a49f316.png" class="w-10" alt="Aysegul logo " data-v-fd85a974><p class="motto text-sm" data-v-fd85a974> Empowering User Experience through Code Craftsmanship. </p></div><div class="flex items-end" data-v-fd85a974><p class="logomaker text-xs" data-v-fd85a974> “Created my free logo at LogoMakr.com“ </p></div></nav></footer></div><!--]--></div><script type="module">import p from "/blog/kalman-filter/_payload.js";window.__NUXT__={...p,...((function(a,b){return {state:{},_errors:{},serverRendered:true,config:{public:{content:{locales:[],defaultLocale:b,integrity:1679252959806,experimental:{stripQueryParameters:a,clientDB:a},api:{baseURL:"\u002Fapi\u002F_content"},navigation:{fields:[]},tags:{p:"prose-p",a:"prose-a",blockquote:"prose-blockquote","code-inline":"prose-code-inline",code:"prose-code",em:"prose-em",h1:"prose-h1",h2:"prose-h2",h3:"prose-h3",h4:"prose-h4",h5:"prose-h5",h6:"prose-h6",hr:"prose-hr",img:"prose-img",ul:"prose-ul",ol:"prose-ol",li:"prose-li",strong:"prose-strong",table:"prose-table",thead:"prose-thead",tbody:"prose-tbody",td:"prose-td",th:"prose-th",tr:"prose-tr"},highlight:a,wsUrl:b,documentDriven:a,host:b,trailingSlash:a,anchorLinks:{depth:4,exclude:[1]}}},app:{baseURL:"\u002F",buildAssetsDir:"\u002F_nuxt\u002F",cdnURL:b}},prerenderedAt:1679252965287}}(false,"")))}</script><script type="module" src="/_nuxt/entry.2bb5d496.js" crossorigin></script><script type="module" src="/_nuxt/default.2b386d29.js" crossorigin></script><script type="module" src="/_nuxt/_...slug_.7962b2f8.js" crossorigin></script><script type="module" src="/_nuxt/ContentDoc.059aa63d.js" crossorigin></script><script type="module" src="/_nuxt/ContentQuery.04811f08.js" crossorigin></script><script type="module" src="/_nuxt/ContentRenderer.8be7732c.js" crossorigin></script><script type="module" src="/_nuxt/ContentRendererMarkdown.73ea1c99.js" crossorigin></script><script type="module" src="/_nuxt/ProseH1.cc0914f6.js" crossorigin></script><script type="module" src="/_nuxt/ProseP.63ba756e.js" crossorigin></script><script type="module" src="/_nuxt/ProseH2.4aa1f724.js" crossorigin></script><script type="module" src="/_nuxt/ProseImg.2cf8f097.js" crossorigin></script><script type="module" src="/_nuxt/ProseHr.6a91d9c0.js" crossorigin></script><script type="module" src="/_nuxt/ProseCode.f15d7103.js" crossorigin></script><script type="module" src="/_nuxt/ProseOl.f73cf3e0.js" crossorigin></script><script type="module" src="/_nuxt/ProseLi.c4f2749f.js" crossorigin></script></body>
+</html>
